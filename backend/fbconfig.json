@@ -1,0 +1,9 @@
+{
+  "apiKey": {replace this},
+  "databaseURL": {replace this},
+  "authDomain": {replace this},
+  "projectId": {replace this},
+  "storageBucket": {replace this},
+  "messagingSenderId": {replace this},
+  "appId": {replace this}
+}

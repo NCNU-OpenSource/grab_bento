@@ -1,0 +1,54 @@
+# This file is a template, and might need editing before it works on your project.
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+
+# This is a sample GitLab CI/CD configuration file that should run without any modifications.
+# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
+# it uses echo commands to simulate the pipeline execution.
+#
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages run in parallel.
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/README.html#stages
+
+image: chofinn/gitlab-ubuntu-img:latest # 自己做的 image，裡面已經有 apt install nodejs default-jre npm
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+build:   # This job runs in the build stage.
+  stage: build
+  script:
+    - npm install
+  artifacts: # 讓此 stage 產生的指定檔案目錄可以被其他 stage 使用
+    paths:
+      - node_modules/
+  cache:
+    untracked: true
+
+unit-test:   # This job runs in the test stage.
+  stage: test 
+
+  before_script:
+    - npm i -g firebase-tools
+  script:
+    - firebase emulators:start &
+    - sleep 5
+    - npm run test
+  cache:
+    untracked: true
+
+deploy:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  variables:
+    FIREBASE_TOKEN: "1//0eokDG8s5CPExCgYIARAAGA4SNwF-L9Irpz-GFfg7pYheAUGPx9xI3y9cUWMOliYhoujyF5NOcBzU0U4O3-DET9vw3MDij-WdhYg"
+  before_script:
+    - npm i -g firebase-tools
+    - CI=false npm run build
+  script:
+    - firebase deploy --token "$FIREBASE_TOKEN"
+

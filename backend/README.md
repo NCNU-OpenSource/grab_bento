@@ -1,4 +1,4 @@
-# grab_bento_backend"
+# grab_bento_backend
 ## Tables
 - Event
     - `event_id`, Integer

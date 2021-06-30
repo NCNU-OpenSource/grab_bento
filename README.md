@@ -8,8 +8,7 @@
     - React
     - Firebase auth
     - react testing library
-- pi k8s cluster
-    - 2 台 pi 4b
+- AWS 虛擬機
     - 完整的 ubuntu server 20.04
     - micro-k8s
 - 後端

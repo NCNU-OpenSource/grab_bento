@@ -49,10 +49,10 @@
 }
 ```
 ### >>>重要<<< key 的產生方式
-`$ python`
-`>>> from cryptography.fernet import Fernet`
-`>>> key = Fernet.generate_key()`
-`>>> key`
-如此將會印出產生的一組 key，回到 shell
-`$ cat > pw_key.key`
-複製剛剛產生的 key，複製過來，再按 ctrl+D
+- `$ python`
+- `>>> from cryptography.fernet import Fernet`
+- `>>> key = Fernet.generate_key()`
+- `>>> key`
+- 如此將會印出產生的一組 key，回到 shell
+- `$ cat > pw_key.key`
+- 複製剛剛產生的 key，複製過來，再按 ctrl+D
